@@ -4,6 +4,11 @@ import java.sql.Date;
 
 import javax.persistence.Column;
 
+/**
+ * Class that transfer data for entities
+ * @author Maria Fernanda Lopez A.
+ *
+ */
 public class EmpleadoDto {
 	
 	private Long id;

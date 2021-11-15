@@ -20,19 +20,22 @@ import com.parameta.api.empleados.model.dto.EmpleadoDto;
 import com.parameta.api.empleados.services.EmpleadoService;
 
 /**
- * Controller que tiene las operaciones que se exponen en la API empleados
- * @author ferch
+ * Controller which has the operations set out in the API employees
+ * @author Maria Fernanda Lopez
  *
  */
 @RestController
 @RequestMapping("/empleados")
 public class EmpleadoController {
 	
+	/**
+	 * Instance of employee service 
+	 */
 	@Autowired
 	private EmpleadoService empleadoService;
 	
 	/**
-	 * <p> Obtener la lista completa de empleados por la API usando el metodo GET</p> 
+	 * Get the complete list of employees by API using GET method
 	 * @return
 	 */
 	@GetMapping
@@ -46,11 +49,11 @@ public class EmpleadoController {
 	
 
 	/**
-	 * Obtener un empleado pasando el id que tiene el registro en base de datos
+	 * Obtain an employee by passing the id that has the record in database
 	 * @param empleadoId
 	 * @return ResponseEntity<Empleado>
 	 */
-	@RequestMapping(value="{empleadoId}", method = RequestMethod.GET) // /empleados/{empleadoId}
+	@RequestMapping(value="{empleadoId}", method = RequestMethod.GET) // /empleado/{empleadoId}
 	public ResponseEntity<Empleado> getEmpleadoById(@PathVariable("empleadoId") Long empleadoId){
 		Optional<Empleado> empleado = empleadoService.getEmpleadoById(empleadoId);
 		if(empleado.isPresent()){
@@ -58,24 +61,38 @@ public class EmpleadoController {
 		}
 		else {
 			return ResponseEntity.noContent().build();
-			
 		}
 	}
 	
-	@PostMapping // /empleados (POST)
+	/**
+	 * Instance that handles requests with verb POST
+	 * @param empleado
+	 * @return newEmpleado
+	 */
+	@PostMapping
 	public ResponseEntity<Empleado> createEmpleado(@RequestBody Empleado empleado){
 		Empleado newEmpleado = empleadoService.createEmpleado(empleado);
 		
 		return ResponseEntity.ok(newEmpleado);
 	}
 	
+	/**
+	 * Instance that remove with verb DELETE a employeed
+	 * @param empleadoId
+	 * @return
+	 */
 	@RequestMapping(value="{empleadoId}", method = RequestMethod.DELETE) // /empleados/{empleadoId}
 	public ResponseEntity<Void> deleteEmpleadoById(@PathVariable("empleadoId") Long empleadoId){
 		empleadoService.deleteEmpleado(empleadoId);
 		return ResponseEntity.ok(null);
 	}
 	
-	@PutMapping // /empleados (PUT)
+	/**
+	 * Instance that update with verb PUT of database Employeed
+	 * @param newEmpleado
+	 * @return
+	 */
+	@PutMapping
 	public ResponseEntity<Empleado> updateEmpleado(@RequestBody Empleado newEmpleado){
 		Optional<Empleado> empleadoBd = empleadoService.getEmpleadoById(newEmpleado.getId());
 		if(empleadoBd.isPresent()){

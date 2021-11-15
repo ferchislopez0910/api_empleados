@@ -9,6 +9,13 @@ import org.springframework.stereotype.Service;
 import com.parameta.api.empleados.model.Empleado;
 import com.parameta.api.empleados.model.dao.EmpleadoDao;
 
+/**
+ * Its the implementation of interface that be used
+ * in the API for the CRUD of employees
+ * 
+ * @author Maria Fernanda Lopez A.
+ *
+ */
 @Service
 public class EmpleadoServiceImpl implements EmpleadoService {
 	

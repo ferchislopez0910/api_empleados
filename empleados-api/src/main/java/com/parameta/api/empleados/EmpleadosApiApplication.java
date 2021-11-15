@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @SpringBootApplication
-@EnableAutoConfiguration
 public class EmpleadosApiApplication {
 
 	//TODO: hacer el contexto global de /api/empleados 

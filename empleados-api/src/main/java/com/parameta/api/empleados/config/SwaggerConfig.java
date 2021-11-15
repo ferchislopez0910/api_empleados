@@ -11,8 +11,19 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
 @EnableSwagger2 //habilita el modulo de swagger
+
+/**
+ * SwaggerConfig is the class that contains the configuration
+ * documentation with swagger
+ * @author Maria Fernanda Lopez A.
+ *
+ */
 public class SwaggerConfig {
 	
+	/**
+	 * Docket api is the indication for used doc swagger
+	 * @return
+	 */
 	@Bean
 	public Docket api() {
 		return new Docket(DocumentationType.SWAGGER_2)

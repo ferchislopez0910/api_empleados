@@ -9,6 +9,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * Is the class of contains Entity
+ * here is define of arguments the table of bd
+ * @author Maria Fernanda Lopez A.
+ *
+ */
 @Entity
 @Table(name="empleado")
 public class Empleado {
@@ -45,6 +51,10 @@ public class Empleado {
 	
 	
 	
+	/**
+	 * Creation getters and setters
+	 *
+	 */
 	public Long getId() {
 		return id;
 	}
@@ -99,7 +109,4 @@ public class Empleado {
 	public void setSalario(Double salario) {
 		this.salario = salario;
 	}
-	
-	
-
 }
