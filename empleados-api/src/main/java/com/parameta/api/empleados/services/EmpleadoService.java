@@ -5,6 +5,11 @@ import java.util.Optional;
 
 import com.parameta.api.empleados.model.Empleado;
 
+/**
+ * Its an interface that call an employees
+ * @author Maria Fernanda Lopez A.
+ *
+ */
 public interface EmpleadoService {
 	
 	//get

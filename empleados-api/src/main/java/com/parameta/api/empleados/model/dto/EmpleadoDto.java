@@ -1,10 +1,9 @@
 package com.parameta.api.empleados.model.dto;
 
-import java.sql.Date;
-
-import javax.persistence.Column;
+import java.time.LocalDate;
 
 /**
+ * 
  * Class that transfer data for entities
  * @author Maria Fernanda Lopez A.
  *
@@ -21,9 +20,9 @@ public class EmpleadoDto {
 	
 	private String numeroDocumento;
 	
-	private Date fechaNacimiento;
+	private LocalDate fechaNacimiento;
 	
-	private Date fechaVinculacion;
+	private LocalDate fechaVinculacion;
 	
 	private String cargo;
 	
@@ -73,20 +72,23 @@ public class EmpleadoDto {
 		this.numeroDocumento = numeroDocumento;
 	}
 
-	public Date getFechaNacimiento() {
+	
+	public LocalDate getFechaNacimiento() {
 		return fechaNacimiento;
 	}
 
-	public void setFechaNacimiento(Date fechaNacimiento) {
-		this.fechaNacimiento = fechaNacimiento;
-	}
-
-	public Date getFechaVinculacion() {
+	public LocalDate getFechaVinculacion() {
 		return fechaVinculacion;
 	}
 
-	public void setFechaVinculacion(Date fechaVinculacion) {
-		this.fechaVinculacion = fechaVinculacion;
+	public void setFechaNacimiento(LocalDate localDate) {
+		this.fechaNacimiento = localDate;
+	}
+
+	
+
+	public void setFechaVinculacion(LocalDate localDate) {
+		this.fechaVinculacion = localDate;
 	}
 
 	public String getCargo() {

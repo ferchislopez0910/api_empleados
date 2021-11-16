@@ -3,6 +3,9 @@ package com.parameta.api.empleados.controllers;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,9 +18,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.parameta.api.empleados.model.Empleado;
-import com.parameta.api.empleados.model.dao.EmpleadoDao;
 import com.parameta.api.empleados.model.dto.EmpleadoDto;
 import com.parameta.api.empleados.services.EmpleadoService;
+import com.parameta.api.empleados.utils.CalcularDatosEmpleado;
 
 /**
  * Controller which has the operations set out in the API employees
@@ -65,19 +68,42 @@ public class EmpleadoController {
 	}
 	
 	/**
-	 * Instance that handles requests with verb POST
+	 * This is the entity that create a new employeed and calculate data employeed
 	 * @param empleado
-	 * @return newEmpleado
+	 * @return empRespDto
 	 */
 	@PostMapping
-	public ResponseEntity<Empleado> createEmpleado(@RequestBody Empleado empleado){
-		Empleado newEmpleado = empleadoService.createEmpleado(empleado);
+	public ResponseEntity<EmpleadoDto> createEmpleado(@Valid @RequestBody Empleado empleado){
+		CalcularDatosEmpleado calcularDatosEmp = new CalcularDatosEmpleado();
+		EmpleadoDto empRespDto = new EmpleadoDto();
 		
-		return ResponseEntity.ok(newEmpleado);
+		
+		Empleado newEmpleado = empleadoService.createEmpleado(empleado);
+		// map object entity to dto
+		BeanUtils.copyProperties(newEmpleado, empRespDto);
+		// calcular edad actual
+		String edadActual = calcularDatosEmp.calculateAgeComplete(newEmpleado.getFechaNacimiento());
+		empRespDto.setEdadActual(edadActual);
+		// calcular tiempo vinculacion		
+		String vinculacion = calcularDatosEmp.calculateDateVinculator(newEmpleado.getFechaVinculacion());
+		empRespDto.setTiempoVinculacion(vinculacion);
+		
+//		empRespDto.setId(newEmpleado.getId());
+//		empRespDto.setNombres(newEmpleado.getNombres());
+//		empRespDto.setApellidos(newEmpleado.getApellidos());
+//		empRespDto.setTipoDocumento(newEmpleado.getTipoDocumento());
+//		empRespDto.setNumeroDocumento(newEmpleado.getNumeroDocumento());
+//		empRespDto.setFechaNacimiento(newEmpleado.getFechaNacimiento());
+//		empRespDto.setFechaVinculacion(newEmpleado.getFechaVinculacion());
+//		empRespDto.setCargo(newEmpleado.getCargo());
+//		empRespDto.setSalario(newEmpleado.getSalario());
+		
+		
+		return ResponseEntity.ok(empRespDto);
 	}
 	
 	/**
-	 * Instance that remove with verb DELETE a employeed
+	 * Method that remove in BD the data of employeed
 	 * @param empleadoId
 	 * @return
 	 */
@@ -88,9 +114,9 @@ public class EmpleadoController {
 	}
 	
 	/**
-	 * Instance that update with verb PUT of database Employeed
+	 * Method that update with verb PUT of database Employeed
 	 * @param newEmpleado
-	 * @return
+	 * @return empleadoActualizado
 	 */
 	@PutMapping
 	public ResponseEntity<Empleado> updateEmpleado(@RequestBody Empleado newEmpleado){
